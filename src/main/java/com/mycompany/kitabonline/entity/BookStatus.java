@@ -1,4 +1,4 @@
 package com.mycompany.kitabonline.entity;
 
-public class BookStatus {
+public enum BookStatus {
 }
