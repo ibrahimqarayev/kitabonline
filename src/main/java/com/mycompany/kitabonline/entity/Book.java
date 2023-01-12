@@ -11,15 +11,20 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Builder
-public class Book {
+public class Book extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String title;
     private String authorName;
+    @Enumerated(EnumType.STRING)
+    private BookStatus bookStatus;
+    private String publisher;
+    private Integer lastPageNumber;
+    private Integer totalPage;
+    @OneToOne
+    private Image image;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
 
 }
