@@ -13,6 +13,6 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 public class Image extends BaseEntity {
-    private Image imageUrl;
+    private String imageUrl;
 
 }
