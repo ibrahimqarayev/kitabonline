@@ -20,8 +20,8 @@ public class BookListService {
     private final BookRepository bookRepository;
     private final CategoryService categoryService;
 
-    public List<BookResponse> listBooks(BookSearchRequest bookSearchRequest) {
-        return bookRepository.findAll(PageRequest.of(bookSearchRequest.getSize(), bookSearchRequest.getPage()))
+    public List<BookResponse> listBooks(int size, int page) {
+        return bookRepository.findAll(PageRequest.of(page, size))
                 .getContent()
                 .stream()
                 .map(BookListService::convertResponse)
@@ -43,15 +43,20 @@ public class BookListService {
     }
 
     public List<BookResponse> searchBookStatus(BookStatus bookStatus) {
-        return bookRepository.findByBookStatus(bookStatus)
-                .stream()
-                .map(each ->
-                        BookResponse.builder()
-                                .id(each.getId())
-                                .imageUrl(each.getImageUrl())
-                                .build()
-                ).collect(Collectors.toList());
+        return bookRepository.findByBookStatus(bookStatus).stream().map(
+                each -> BookResponse.builder()
+                        .id(each.getId())
+                        .imageUrl(each.getImage().getImageUrl())
+                        .build()).collect(Collectors.toList());
     }
 
+    public List<BookResponse> searchByTitle(String title) {
+        return bookRepository.findByTitle(title).stream().map(
+                each -> BookResponse.builder()
+                        .id(each.getId())
+                        .imageUrl(each.getImage().getImageUrl())
+                        .build()).collect(Collectors.toList());
+
+    }
 
 }
