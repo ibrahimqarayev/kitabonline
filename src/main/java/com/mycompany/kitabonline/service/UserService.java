@@ -29,7 +29,7 @@ public class UserService {
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(()->GenericException.builder()
+        return userRepository.findByUsername(username).orElseThrow(() -> GenericException.builder()
                 .httpStatus(HttpStatus.NOT_FOUND)
                 .errorMessage("User not found by given id !")
                 .build());
