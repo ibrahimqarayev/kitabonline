@@ -21,4 +21,5 @@ public class BaseEntity {
     private LocalDateTime createDate = LocalDateTime.now();
     //@UpdateTimestamp
     private LocalDateTime updateDate = LocalDateTime.now();
+
 }
