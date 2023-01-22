@@ -4,6 +4,7 @@ import com.mycompany.kitabonline.service.UserDetailsServiceImpl;
 import com.mycompany.kitabonline.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,7 +22,18 @@ public class JwtFilter extends OncePerRequestFilter {
     private final UserDetailsServiceImpl userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        String token = getToken(request);
+        String username;
+        try {
+            if (!token.isBlank()) {
+                username = tokenGenerator.verifyJWT(token).getSubject();
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            }
+        }
 
     }
 
