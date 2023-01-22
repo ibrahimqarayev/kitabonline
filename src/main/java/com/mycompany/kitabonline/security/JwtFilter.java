@@ -1,5 +1,6 @@
 package com.mycompany.kitabonline.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycompany.kitabonline.service.UserDetailsServiceImpl;
 import com.mycompany.kitabonline.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final TokenGenerator tokenGenerator;
     private final UserDetailsServiceImpl userDetailsService;
+    private final ObjectMapper mapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -45,6 +49,9 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (Exception exception) {
             response.setContentType("application/json");
+            Map<String, String> errors = new HashMap<>();
+            errors.put("error", exception.getMessage());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
     }
