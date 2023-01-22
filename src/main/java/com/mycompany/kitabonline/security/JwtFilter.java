@@ -27,7 +27,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final TokenGenerator tokenGenerator;
     private final UserDetailsServiceImpl userDetailsService;
-    private final ObjectMapper mapper;
+    private final ObjectMapper objectMapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -52,6 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
             Map<String, String> errors = new HashMap<>();
             errors.put("error", exception.getMessage());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write(objectMapper.writeValueAsString(errors));
         }
 
     }
