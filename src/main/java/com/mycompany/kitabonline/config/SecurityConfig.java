@@ -1,5 +1,7 @@
 package com.mycompany.kitabonline.config;
 
+import com.mycompany.kitabonline.security.JwtAccessDeniedHandler;
+import com.mycompany.kitabonline.security.JwtAuthenticationEntryPoint;
 import com.mycompany.kitabonline.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public AuthenticationManager authenticationManager(final AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -43,6 +47,9 @@ public class SecurityConfig {
                 })
                 .formLogin().disable()
                 .httpBasic().disable()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
