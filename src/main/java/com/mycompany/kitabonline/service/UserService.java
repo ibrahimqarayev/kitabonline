@@ -16,11 +16,20 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDto create(User user) {
+    public UserDto createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(user);
 
+        return UserDto.builder()
+                .username(savedUser.getUsername())
+                .email(savedUser.getEmail())
+                .role(savedUser.getRole())
+                .build();
+    }
+
+    public UserDto getUser(String username) {
+        User savedUser = userRepository.findByUsername(username).orElseThrow();
         return UserDto.builder()
                 .username(savedUser.getUsername())
                 .email(savedUser.getEmail())
