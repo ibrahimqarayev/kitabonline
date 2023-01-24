@@ -1,7 +1,6 @@
 package com.mycompany.kitabonline.service;
 
 import com.mycompany.kitabonline.dto.BookResponse;
-import com.mycompany.kitabonline.dto.BookSearchRequest;
 import com.mycompany.kitabonline.dto.CategoryType;
 import com.mycompany.kitabonline.entity.Book;
 import com.mycompany.kitabonline.entity.BookStatus;
