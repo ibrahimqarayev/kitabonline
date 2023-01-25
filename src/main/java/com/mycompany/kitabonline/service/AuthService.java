@@ -29,7 +29,7 @@ public class AuthService {
                     .accessToken(tokenGenerator.generateToken(auth))
                     .userDto(userService.getUser(loginRequest.getUsername()))
                     .build();
-        }catch (Exception exception){
+        } catch (Exception exception) {
             throw GenericException.builder()
                     .httpStatus(HttpStatus.NOT_FOUND)
                     .errorMessage("User not found !")
