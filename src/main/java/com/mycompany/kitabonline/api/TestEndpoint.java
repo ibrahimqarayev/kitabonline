@@ -13,5 +13,10 @@ public class TestEndpoint {
         return "admin";
     }
 
+    @GetMapping("/admin")
+    public String user(){
+        return "user";
+    }
+
 
 }
