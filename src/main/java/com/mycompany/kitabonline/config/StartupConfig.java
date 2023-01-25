@@ -17,11 +17,19 @@ public class StartupConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         userService.createUser(User.builder()
+                .username("user")
+                .password("user")
+                .email("useruser@gmail.com")
+                .role(Role.USER)
+                .build());
+
+        userService.createUser(User.builder()
                 .username("root")
                 .password("root")
-                .email("qarayevibrahimm@gmail.com")
+                .email("rootroot@gmail.com")
                 .role(Role.ADMIN)
                 .build());
+
 
     }
 }
