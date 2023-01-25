@@ -17,8 +17,8 @@ public class StartupConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         userService.createUser(User.builder()
-                .username("Ibrahim")
-                .password("12345")
+                .username("root")
+                .password("root")
                 .email("qarayevibrahimm@gmail.com")
                 .role(Role.ADMIN)
                 .build());
