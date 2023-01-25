@@ -18,5 +18,10 @@ public class TestEndpoint {
         return "user";
     }
 
+    @GetMapping("/public")
+    public String publicEndpoint(){
+        return "publicEndpoint";
+    }
+
 
 }
