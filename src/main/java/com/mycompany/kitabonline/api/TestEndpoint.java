@@ -1,6 +1,9 @@
 package com.mycompany.kitabonline.api;
 
+import com.mycompany.kitabonline.service.UserDetailsServiceImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +17,7 @@ public class TestEndpoint {
         return "admin";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/user")
     public String user() {
         return "user";
     }
@@ -24,9 +27,15 @@ public class TestEndpoint {
         return "publicEndpoint";
     }
 
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
+    @GetMapping("/method")
+    public String methodAdmin() {
+        return "method-admin";
+    }
+
     @GetMapping("/me")
     public String getMyself() {
-        return SecurityContextHolder.getContext().getAuthentication().getName().toString();
+        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication()).getUsername().toString();
     }
 
 
