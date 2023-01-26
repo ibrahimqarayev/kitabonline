@@ -37,6 +37,7 @@ public class BookRestController {
         return ResponseEntity.ok(bookListService.listBooks(size, page));
     }
 
+
     @GetMapping("/list/{categoryType}")
     public ResponseEntity<List<BookResponse>> listByCategory(@PathVariable CategoryType categoryType) {
         return ResponseEntity.ok(bookListService.searchByCategory(categoryType));
