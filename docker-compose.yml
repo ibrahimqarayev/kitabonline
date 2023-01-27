@@ -33,7 +33,7 @@ services:
     depends_on:
       - mysqldb
     environment:
-      - spring.datasource.url = jdbc:mysql://localhost:3306/lib?useSSL=false
+      - spring.datasource.url = jdbc:mysql://mysqldb:3306/lib?useSSL=false
       - SERVER_PORT=8082
       - spring.redis.host=redis
       - spring.redis.port=6379
