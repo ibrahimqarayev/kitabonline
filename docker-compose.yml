@@ -23,6 +23,10 @@ services:
     volumes:
       - ./mysql/data:/backup
 
-networks:
-  shared-net:
-    driver: bridge
+  app:
+    image: app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+
+
