@@ -22,3 +22,7 @@ services:
       - shared-net
     volumes:
       - ./mysql/data:/backup
+
+networks:
+  shared-net:
+    driver: bridge
